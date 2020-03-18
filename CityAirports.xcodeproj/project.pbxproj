@@ -20,6 +20,12 @@
 		91C30B7F2422B0350099E872 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 91C30B7E2422B0350099E872 /* README.md */; };
 		91C30B812422B04D0099E872 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 91C30B802422B04D0099E872 /* .gitignore */; };
 		91C30B8C2422B2E50099E872 /* SearchCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C30B8B2422B2E50099E872 /* SearchCityViewController.swift */; };
+		91C30B8F2422BDB60099E872 /* Storyboardable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C30B8E2422BDB60099E872 /* Storyboardable.swift */; };
+		91C30B922422BE590099E872 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C30B912422BE590099E872 /* Coordinator.swift */; };
+		91C30B942422BE7D0099E872 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C30B932422BE7D0099E872 /* BaseCoordinator.swift */; };
+		91C30B962422BEAA0099E872 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C30B952422BEAA0099E872 /* AppCoordinator.swift */; };
+		91C30B992422BF0D0099E872 /* SearchCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C30B982422BF0D0099E872 /* SearchCityViewModel.swift */; };
+		91C30B9C2422BF9B0099E872 /* SearchCityCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C30B9B2422BF9B0099E872 /* SearchCityCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +69,12 @@
 		91C30B7E2422B0350099E872 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		91C30B802422B04D0099E872 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		91C30B8B2422B2E50099E872 /* SearchCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCityViewController.swift; sourceTree = "<group>"; };
+		91C30B8E2422BDB60099E872 /* Storyboardable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboardable.swift; sourceTree = "<group>"; };
+		91C30B912422BE590099E872 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		91C30B932422BE7D0099E872 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
+		91C30B952422BEAA0099E872 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		91C30B982422BF0D0099E872 /* SearchCityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCityViewModel.swift; sourceTree = "<group>"; };
+		91C30B9B2422BF9B0099E872 /* SearchCityCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCityCoordinator.swift; sourceTree = "<group>"; };
 		9A3A5843E8CB53C0EE253CDE /* Pods_CityAirports_CityAirportsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CityAirports_CityAirportsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D53C07DD5B7ABE57F3AE9B1A /* Pods-CityAirports.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CityAirports.debug.xcconfig"; path = "Target Support Files/Pods-CityAirports/Pods-CityAirports.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,6 +160,8 @@
 				91C30B822422B1890099E872 /* Application */,
 				91C30B832422B19B0099E872 /* Support Files */,
 				91C30B842422B1A80099E872 /* Resources */,
+				91C30B8D2422BD750099E872 /* Shared */,
+				91C30B902422BE060099E872 /* Coordinator */,
 				91C30B862422B1CC0099E872 /* Scenes */,
 			);
 			path = CityAirports;
@@ -234,6 +248,8 @@
 			isa = PBXGroup;
 			children = (
 				91C30B8A2422B2910099E872 /* View */,
+				91C30B972422BEDE0099E872 /* ViewModel */,
+				91C30B9A2422BF440099E872 /* Coordinator */,
 			);
 			path = "Search City";
 			sourceTree = "<group>";
@@ -244,6 +260,40 @@
 				91C30B8B2422B2E50099E872 /* SearchCityViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		91C30B8D2422BD750099E872 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				91C30B8E2422BDB60099E872 /* Storyboardable.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		91C30B902422BE060099E872 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				91C30B912422BE590099E872 /* Coordinator.swift */,
+				91C30B932422BE7D0099E872 /* BaseCoordinator.swift */,
+				91C30B952422BEAA0099E872 /* AppCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		91C30B972422BEDE0099E872 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				91C30B982422BF0D0099E872 /* SearchCityViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		91C30B9A2422BF440099E872 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				91C30B9B2422BF9B0099E872 /* SearchCityCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -487,9 +537,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91C30B8F2422BDB60099E872 /* Storyboardable.swift in Sources */,
+				91C30B942422BE7D0099E872 /* BaseCoordinator.swift in Sources */,
 				91C30B8C2422B2E50099E872 /* SearchCityViewController.swift in Sources */,
+				91C30B922422BE590099E872 /* Coordinator.swift in Sources */,
+				91C30B9C2422BF9B0099E872 /* SearchCityCoordinator.swift in Sources */,
 				91C30B4F2422AEDC0099E872 /* AppDelegate.swift in Sources */,
 				91C30B512422AEDC0099E872 /* SceneDelegate.swift in Sources */,
+				91C30B962422BEAA0099E872 /* AppCoordinator.swift in Sources */,
+				91C30B992422BF0D0099E872 /* SearchCityViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
