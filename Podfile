@@ -6,6 +6,7 @@ target 'CityAirports' do
   use_frameworks!
 
   # Pods for CityAirports
+    pod 'Alamofire', '~> 5.0'
     pod 'RxSwift', '~> 5'
     pod 'RxCocoa', '~> 5'
     pod 'RxDataSources', '~> 4.0'
