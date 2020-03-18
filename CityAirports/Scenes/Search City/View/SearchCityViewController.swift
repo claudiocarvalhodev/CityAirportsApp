@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SearchCityViewController.swift
 //  CityAirports
 //
 //  Created by Claudio Carvalho on 18/03/20.
@@ -8,13 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SearchCityViewController: UIViewController {
+    
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
-
-
 }
-
