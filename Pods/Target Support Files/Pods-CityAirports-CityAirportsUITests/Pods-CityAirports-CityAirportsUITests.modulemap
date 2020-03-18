@@ -1,0 +1,6 @@
+framework module Pods_CityAirports_CityAirportsUITests {
+  umbrella header "Pods-CityAirports-CityAirportsUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

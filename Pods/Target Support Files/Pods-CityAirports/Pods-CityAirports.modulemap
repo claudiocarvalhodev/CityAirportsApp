@@ -1,0 +1,6 @@
+framework module Pods_CityAirports {
+  umbrella header "Pods-CityAirports-umbrella.h"
+
+  export *
+  module * { export * }
+}
