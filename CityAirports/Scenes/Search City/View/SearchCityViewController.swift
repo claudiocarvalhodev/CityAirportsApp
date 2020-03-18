@@ -7,12 +7,29 @@
 //
 
 import UIKit
+import RxSwift
+import RxDataSources
 
-class SearchCityViewController: UIViewController {
+class SearchCityViewController: UIViewController, Storyboardable {
+    
+    // MARK: - IBOutlets
+    
+    @IBOutlet weak var roundedView: UIView!
+    @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var tableView: UITableView!
+    
+    // MARK: - Properties
+    
+    private var viewModel: SearchCityViewPresentable!
+    var viewModelBuilder: SearchCityViewPresentable.ViewModelBuilder!
     
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = viewModelBuilder((
+            searchText: searchTextField.rx.text.orEmpty.asDriver(), ()
+        ))
+        self.title = "Airports"
     }
 }
