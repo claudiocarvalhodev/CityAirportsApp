@@ -10,12 +10,15 @@ import Foundation
 import RxSwift
 import RxCocoa
 import RxRelay
+import RxDataSources
 
 protocol SearchCityViewPresentable {
     typealias Input = (
         searchText: Driver<String>, ()
     )
-    typealias Output = ()
+    typealias Output = (
+        cities: Driver<[CityItemsSection]>, ()
+    )
     typealias ViewModelBuilder = (SearchCityViewPresentable.Input) -> SearchCityViewPresentable
     
     var input: SearchCityViewPresentable.Input { get }
@@ -36,8 +39,7 @@ class SearchCityViewModel: SearchCityViewPresentable {
     init(input: SearchCityViewPresentable.Input, airportService: AirportAPI) {
         self.input = input
         self.output = SearchCityViewModel.output(input: self.input,
-                                                 state: self.state,
-                                                 bag: self.bag)
+                                                 state: self.state)
         self.airportService = airportService
         self.process()
     }
@@ -46,8 +48,7 @@ class SearchCityViewModel: SearchCityViewPresentable {
 private extension SearchCityViewModel {
     
     static func output(input: SearchCityViewPresentable.Input,
-                       state: State,
-                       bag: DisposeBag) -> SearchCityViewPresentable.Output {
+                       state: State) -> SearchCityViewPresentable.Output {
         
         let searchTextObservable = input.searchText
             .debounce(.milliseconds(300))
@@ -61,7 +62,7 @@ private extension SearchCityViewModel {
             .skip(1)
             .asObservable()
         
-        Observable
+        let sections = Observable
             .combineLatest(searchTextObservable, airportsObservable)
             .map ({ (searchKey, airports) in
                 return airports.filter { (airport) -> Bool in
@@ -72,13 +73,15 @@ private extension SearchCityViewModel {
                             .hasPrefix(searchKey.lowercased())
                 }
             })
-            .map {
-                print($0)
-            }
-            .subscribe()
-            .disposed(by: bag)
+            .map({
+                SearchCityViewModel.uniqueElementsFrom(array: $0.compactMap({ CityViewModel(model: $0) }))
+            })
+            .map({ [CityItemsSection(model: 0, items: $0)] })
+            .asDriver(onErrorJustReturn: [])
         
-        return ()
+        return (
+            cities: sections, ()
+        )
     }
     
     func process() -> Void {
@@ -92,3 +95,18 @@ private extension SearchCityViewModel {
     }
 }
 
+private extension SearchCityViewModel {
+    static func uniqueElementsFrom(array: [CityViewModel]) -> [CityViewModel] {
+        var set = Set<CityViewModel>()
+        let result = array.filter {
+            guard !set.contains($0) else {
+                //
+                return false
+            }
+            //
+            set.insert($0)
+            return true
+        }
+        return result
+    }
+}
