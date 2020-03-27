@@ -9,12 +9,16 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RxRelay
+import RxDataSources
 
 protocol SearchCityViewPresentable {
     typealias Input = (
         searchText: Driver<String>, ()
     )
-    typealias Output = ()
+    typealias Output = (
+        cities: Driver<[CityItemsSection]>, ()
+    )
     typealias ViewModelBuilder = (SearchCityViewPresentable.Input) -> SearchCityViewPresentable
     
     var input: SearchCityViewPresentable.Input { get }
@@ -27,11 +31,15 @@ class SearchCityViewModel: SearchCityViewPresentable {
     var output: SearchCityViewPresentable.Output
     private let airportService: AirportAPI
     
+    typealias State = (airports: BehaviorRelay<Set<AirportModel>>, ())
+    private let state: State = (airports: BehaviorRelay<Set<AirportModel>>(value: []), ())
+    
     private let bag = DisposeBag()
     
     init(input: SearchCityViewPresentable.Input, airportService: AirportAPI) {
         self.input = input
-        self.output = SearchCityViewModel.output(input: self.input)
+        self.output = SearchCityViewModel.output(input: self.input,
+                                                 state: self.state)
         self.airportService = airportService
         self.process()
     }
@@ -39,19 +47,66 @@ class SearchCityViewModel: SearchCityViewPresentable {
 
 private extension SearchCityViewModel {
     
-    static func output(input: SearchCityViewPresentable.Input) -> SearchCityViewPresentable.Output {
-        return ()
+    static func output(input: SearchCityViewPresentable.Input,
+                       state: State) -> SearchCityViewPresentable.Output {
+        
+        let searchTextObservable = input.searchText
+            .debounce(.milliseconds(300))
+            .distinctUntilChanged()
+            .skip(1)
+            .asObservable()
+            .share(replay: 1, scope: .whileConnected)
+            
+        
+        let airportsObservable = state.airports
+            .skip(1)
+            .asObservable()
+        
+        let sections = Observable
+            .combineLatest(searchTextObservable, airportsObservable)
+            .map ({ (searchKey, airports) in
+                return airports.filter { (airport) -> Bool in
+                    !searchKey.isEmpty &&
+                        airport.city
+                            .lowercased()
+                            .replacingOccurrences(of: " ", with: "")
+                            .hasPrefix(searchKey.lowercased())
+                }
+            })
+            .map({
+                SearchCityViewModel.uniqueElementsFrom(array: $0.compactMap({ CityViewModel(model: $0) }))
+            })
+            .map({ [CityItemsSection(model: 0, items: $0)] })
+            .asDriver(onErrorJustReturn: [])
+        
+        return (
+            cities: sections, ()
+        )
     }
     
     func process() -> Void {
         
         self.airportService
             .fetchAirports()
-            .map({ (airports) in
-                print("Airports> \(airports)")
-            })
+            .map({ Set($0) })
+            .map({ [state] in state.airports.accept($0) })
             .subscribe()
             .disposed(by: bag)
     }
 }
 
+private extension SearchCityViewModel {
+    static func uniqueElementsFrom(array: [CityViewModel]) -> [CityViewModel] {
+        var set = Set<CityViewModel>()
+        let result = array.filter {
+            guard !set.contains($0) else {
+                //
+                return false
+            }
+            //
+            set.insert($0)
+            return true
+        }
+        return result
+    }
+}
