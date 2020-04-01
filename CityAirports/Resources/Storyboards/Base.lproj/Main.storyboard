@@ -62,5 +62,35 @@
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
         </scene>
+        <!--Airports View Controller-->
+        <scene sceneID="Wc9-ac-zi9">
+            <objects>
+                <viewController storyboardIdentifier="AirportsViewController" id="7NZ-R0-SZY" customClass="AirportsViewController" customModule="CityAirports" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fYz-Zp-ewB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ump-Sy-Ypc">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="LbN-m9-y34" firstAttribute="trailing" secondItem="ump-Sy-Ypc" secondAttribute="trailing" id="IqK-mP-U1v"/>
+                            <constraint firstItem="ump-Sy-Ypc" firstAttribute="bottom" secondItem="LbN-m9-y34" secondAttribute="bottom" constant="34" id="MpA-cI-IYk"/>
+                            <constraint firstItem="ump-Sy-Ypc" firstAttribute="top" secondItem="LbN-m9-y34" secondAttribute="top" id="dhh-9l-7LE"/>
+                            <constraint firstItem="ump-Sy-Ypc" firstAttribute="leading" secondItem="LbN-m9-y34" secondAttribute="leading" id="j6b-It-PFB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="LbN-m9-y34"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="ump-Sy-Ypc" id="d7h-FA-h7O"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qd0-tG-891" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="986.95652173913049" y="138.61607142857142"/>
+        </scene>
     </scenes>
 </document>
